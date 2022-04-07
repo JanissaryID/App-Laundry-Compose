@@ -16,6 +16,7 @@ import com.example.mylaundryapp.api.machine.MachineViewModel
 import com.example.mylaundryapp.api.payment.PaymentQrisViewModel
 import com.example.mylaundryapp.api.price.PriceViewModel
 import com.example.mylaundryapp.api.transaction.TransactionViewModel
+import com.example.mylaundryapp.excel.ExcelViewModel
 import com.example.mylaundryapp.navigation.NavGraphSetup
 import com.example.mylaundryapp.room.setting.SettingViewModel
 import com.example.mylaundryapp.screens.insertData
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
     val transactionViewModel by viewModels<TransactionViewModel>()
     val priceViewModel by viewModels<PriceViewModel>()
     val settingViewModel by viewModels<SettingViewModel>()
+    val excelViewModel by viewModels<ExcelViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +48,8 @@ class MainActivity : ComponentActivity() {
                     settingViewModel = settingViewModel,
                     machineViewModel = machineViewModel,
                     transactionViewModel = transactionViewModel,
-                    priceViewModel = priceViewModel
+                    priceViewModel = priceViewModel,
+                    excelViewModel = excelViewModel
                 )
             }
             insertData(settingViewModel = settingViewModel)

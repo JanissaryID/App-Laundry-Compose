@@ -1,5 +1,6 @@
 package com.example.mylaundryapp.components.payment
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -31,7 +32,7 @@ fun LoadDataPayment(
 //    Log.d("debug", "Get $GET_DATA_MACHINE_STAT")
     when (paymentState) {
         0 -> {
-//            Log.d("debug", "Loading")
+            Log.d("debug", "Loading")
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
@@ -40,7 +41,7 @@ fun LoadDataPayment(
             }
         }
         1 -> {
-//            Log.d("debug", "Success")
+            Log.d("debug", "Success")
             if(rawQR != ""){
                 val imageBit = QRGenerator(code = rawQR)
 
@@ -74,7 +75,7 @@ fun LoadDataPayment(
                     color = MaterialTheme.colors.primary,
                 )
             }
-//            Log.d("debug", "Error")
+            Log.d("debug", "Error")
             Toast.makeText(context, "Can't load data", Toast.LENGTH_SHORT).show()
         }
     }

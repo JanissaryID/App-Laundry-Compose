@@ -1,7 +1,6 @@
 package com.example.mylaundryapp.screens
 
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -17,7 +16,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.mylaundryapp.*
 import com.example.mylaundryapp.api.machine.MachineViewModel
-import com.example.mylaundryapp.api.price.PriceViewModel
 import com.example.mylaundryapp.api.transaction.TransactionViewModel
 import com.example.mylaundryapp.components.ButtonView
 import com.example.mylaundryapp.components.TopAppBarView

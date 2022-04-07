@@ -1,30 +1,39 @@
-package com.example.mylaundryapp.components.machine
+package com.example.mylaundryapp.components.transaction
 
-import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.example.mylaundryapp.PAYMENT_SUCCESS
+import com.example.mylaundryapp.R
 import com.example.mylaundryapp.api.machine.MachineModel
+import com.example.mylaundryapp.api.transaction.TransactionModel
+import com.example.mylaundryapp.components.QRGenerator
 import com.example.mylaundryapp.components.column.ColumnMachine
+import com.example.mylaundryapp.components.column.ColumnTransaction
 
 @Composable
-fun LoadDataMachine(
-    machine: List<MachineModel>,
-    machineState: Int,
+fun LoadDataTransaction(
+    transaction: List<TransactionModel>,
+    transactionState: Int,
     selectedIndex: Int,
     onItemClick: (Int) -> Unit
 ) {
     val context = LocalContext.current
 //    Log.d("debug", "Get $GET_DATA_MACHINE_STAT")
-    when (machineState) {
+    when (transactionState) {
         0 -> {
 //            Log.d("debug", "Loading")
             Box(
@@ -36,13 +45,14 @@ fun LoadDataMachine(
         }
         1 -> {
 //            Log.d("debug", "Success")
-            if (!machine.isNullOrEmpty()){
+            if (!transaction.isNullOrEmpty()){
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    ColumnMachine(machineModel = machine, selectedIndex = selectedIndex, onItemClick = onItemClick)
+                    ColumnTransaction(transactionModel = transaction, selectedIndex = selectedIndex, onItemClick = onItemClick)
                 }
+
             }
         }
         2 -> {

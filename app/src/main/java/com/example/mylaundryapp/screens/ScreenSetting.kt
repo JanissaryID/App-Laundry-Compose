@@ -19,11 +19,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.mylaundryapp.*
+import com.example.mylaundryapp.api.transaction.TransactionViewModel
 import com.example.mylaundryapp.components.ButtonView
 import com.example.mylaundryapp.components.TextFieldOutline
 import com.example.mylaundryapp.components.TopAppBarView
@@ -31,6 +34,7 @@ import com.example.mylaundryapp.components.view.ViewSetting
 import com.example.mylaundryapp.navigation.Screens
 import com.example.mylaundryapp.room.setting.SettingItem
 import com.example.mylaundryapp.room.setting.SettingViewModel
+import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
 import com.example.mylaundryapp.view.ContentHome
 
 @Composable
@@ -112,3 +116,4 @@ fun insertData(settingViewModel: SettingViewModel) {
         settingViewModel.addSettings(settingItem)
     }
 }
+

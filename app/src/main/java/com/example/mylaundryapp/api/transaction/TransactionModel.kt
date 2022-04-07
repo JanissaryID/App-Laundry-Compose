@@ -25,6 +25,9 @@ data class TransactionModel(
 	@field:SerializedName("transaction_type_menu")
 	val transactionTypeMenu: String? = null,
 
+	@field:SerializedName("id")
+	val id: Int? = null,
+
 	@field:SerializedName("transaction_number_machine")
 	val transactionNumberMachine: Int? = null,
 

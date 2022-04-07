@@ -10,6 +10,12 @@ interface MachineService {
     @GET("/fetch-machine")
     fun fetchMachine(): Call<List<MachineModel>>
 
+    @GET("/filter-machine")
+    fun fetchFilterMachine(
+        @Query(value="classes", encoded=true) classes: Boolean?,
+        @Query(value="type", encoded=true) type: Boolean?
+    ): Call<List<MachineModel>>
+
     @PUT("/update-status-machine")
     fun putMachine(
         @Query(value="id", encoded=true) sl_id: Int?, @Body updateData : MachineModelUpdate

@@ -24,14 +24,14 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.mylaundryapp.TRANSACTION_ACTIVE
 import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TransactionItem(
     title: String = "Transaction Active",
-    transactionActive: Int = 3
-//     navController: NavController,
-//     onClick: (Int) -> Unit
+     onClick: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -44,6 +44,7 @@ fun TransactionItem(
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.surface,
         elevation = 0.dp,
+        onClick = { onClick() }
     ) {
         ConstraintLayout(modifier = modifier
             .height(68.dp)
@@ -53,7 +54,7 @@ fun TransactionItem(
             val (titles,iconEnter) = createRefs()
 
             Text(
-                text = "$transactionActive $title",
+                text = "$title",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 modifier = modifier.wrapContentHeight()

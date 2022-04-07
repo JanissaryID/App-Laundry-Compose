@@ -5,6 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.mylaundryapp.INDEX_CLASS_MACHINE
+import com.example.mylaundryapp.MENU_VALUE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,13 +20,17 @@ class MachineViewModel: ViewModel() {
 
     fun getMachine(){
         try {
-            MachineApp.CreateInstance().fetchMachine().enqueue(object :
+            MachineApp.CreateInstance().fetchFilterMachine(
+                classes = if(INDEX_CLASS_MACHINE == 0) false else true,
+                type = if (MENU_VALUE != "Dryer") false else true
+            ).enqueue(object :
                 Callback<List<MachineModel>> {
                 override fun onResponse(call: Call<List<MachineModel>>, response: Response<List<MachineModel>>) {
                     stateMachine = 0
                     if(response.code() == 200){
                         response.body()?.let {
                             machineListResponse = response.body()!!
+//                            MACHINE_DATA = machineListResponse
 //                            Log.d("debug", "Code : ${response.code().toString()}")
 //                            Log.d("debug", "Code : ${machineListResponse}")
                             stateMachine = 1

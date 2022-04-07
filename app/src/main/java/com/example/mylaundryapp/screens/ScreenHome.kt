@@ -1,7 +1,9 @@
 package com.example.mylaundryapp.screens
 
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,20 +25,27 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mylaundryapp.*
+import com.example.mylaundryapp.api.machine.MachineViewModel
 import com.example.mylaundryapp.api.price.PriceApp
 import com.example.mylaundryapp.api.price.PriceViewModel
+import com.example.mylaundryapp.api.transaction.TransactionViewModel
 import com.example.mylaundryapp.components.ButtonView
 import com.example.mylaundryapp.components.TopAppBarViewHome
 import com.example.mylaundryapp.navigation.Screens
 import com.example.mylaundryapp.room.setting.SettingViewModel
 import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
 import com.example.mylaundryapp.view.ContentHome
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenHome(
     navController: NavController,
     priceViewModel: PriceViewModel,
-    settingViewModel: SettingViewModel
+    settingViewModel: SettingViewModel,
+    machineViewModel: MachineViewModel,
+    transactionViewModel: TransactionViewModel
 ) {
     Scaffold(
         topBar = { TopAppBarViewHome(
@@ -45,32 +54,34 @@ fun ScreenHome(
         ) },
         backgroundColor = MaterialTheme.colors.background
     ){
+        val current = LocalDateTime.now()
+
+        val formatDay = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val date = current.format(formatDay)
+        DATE_PICK = date
+
         SELECTED_INDEX = -1
         VALUE_SETTING = settingViewModel.readAllData.observeAsState(listOf()).value
-        WallHome(navController = navController, priceViewModel = priceViewModel, settingViewModel = settingViewModel)
+        WallHome(navController = navController, priceViewModel = priceViewModel, machineViewModel = machineViewModel)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WallHome(navController: NavController, priceViewModel: PriceViewModel, settingViewModel: SettingViewModel) {
+fun WallHome(navController: NavController, priceViewModel: PriceViewModel, machineViewModel: MachineViewModel) {
 
     if (!VALUE_SETTING.isNullOrEmpty()){
         IP_ADDRESS = VALUE_SETTING[0].valueSetting.toString()
         CLIENT_ID = VALUE_SETTING[1].valueSetting.toString()
         CLIENT_KEY = VALUE_SETTING[2].valueSetting.toString()
         MERCHANT_ID = VALUE_SETTING[3].valueSetting.toString()
-//        Log.d("debug", "Setting IP : ${VALUE_SETTING[0].valueSetting}")
-//        Log.d("debug", "Client ID : ${VALUE_SETTING[1].valueSetting}")
-//        Log.d("debug", "Client Key : ${VALUE_SETTING[2].valueSetting}")
-//        Log.d("debug", "Merchant iD : ${VALUE_SETTING[3].valueSetting}")
     }
 
     PAYMENT_SUCCESS = false
 
     val context = LocalContext.current
 
-    val selectionMenu = listOf("Menu", "Class Machine", "Menu Machine", "Transaction Active")
+    val selectionMenu = listOf("Menu", "Class Machine", "Menu Machine", "Transaction")
 
     ConstraintLayout(modifier = Modifier
         .padding(start = 16.dp, end = 16.dp, top = 16.dp)
@@ -92,7 +103,7 @@ fun WallHome(navController: NavController, priceViewModel: PriceViewModel, setti
                         fontSize = 24.sp,
                         color = MaterialTheme.colors.onSurface
                     )
-                    ContentHome(index = index, priceViewModel = priceViewModel)
+                    ContentHome(index = index, priceViewModel = priceViewModel, navController = navController)
                 }
             }
         }
@@ -108,6 +119,7 @@ fun WallHome(navController: NavController, priceViewModel: PriceViewModel, setti
                 false
             }
         ){
+//            CLICKED_BUTTON = true
             navController.navigate(route = Screens.Machine.route)
 //            Toast.makeText(context, "Value Menu $MENU_VALUE And $INDEX_CLASS_MACHINE and $INDEX_CLASS_MACHINE", Toast.LENGTH_SHORT).show()
         }

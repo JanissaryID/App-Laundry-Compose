@@ -24,7 +24,8 @@ fun ViewMachine(
     color: Color = MaterialTheme.colors.surface,
     index: Int,
     selected: Boolean,
-    onClick: (Int) -> Unit) {
+    onClick: (Int) -> Unit
+) {
     val context = LocalContext.current
 
     Card(
