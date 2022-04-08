@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PriceModel(
 
+	@field:SerializedName("is_packet")
+	val isPacket: Boolean? = null,
+
 	@field:SerializedName("price")
 	val price: String? = null,
 
