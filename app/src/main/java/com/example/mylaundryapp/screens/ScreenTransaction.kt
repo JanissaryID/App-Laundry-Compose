@@ -12,14 +12,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.mylaundryapp.TEXT_FIELD
-import com.example.mylaundryapp.TITLE_SCREEN
-import com.example.mylaundryapp.VALUE_SETTING
+import com.example.mylaundryapp.*
 import com.example.mylaundryapp.api.transaction.TransactionViewModel
 import com.example.mylaundryapp.components.TopAppBarView
 import com.example.mylaundryapp.components.machine.LoadDataMachine
@@ -45,14 +44,16 @@ fun WallTransaction(navController: NavController, transactionViewModel: Transact
     val onItemClick = { index: Int -> selectedIndex = index}
 
     val stateTransaction = transactionViewModel.stateTransaction
-    val transaction = transactionViewModel.transactionListResponse
+    val transaction = transactionViewModel.transactionListResponseActive
 
     Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)){
         LoadDataTransaction(
             transaction = transaction,
             transactionState = stateTransaction,
             selectedIndex = selectedIndex,
-            onItemClick = onItemClick
+            is_list = false,
+            onItemClick = onItemClick,
+            navController = navController
         )
     }
 }

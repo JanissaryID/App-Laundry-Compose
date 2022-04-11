@@ -35,13 +35,6 @@ fun NavGraphSetup(
         composable(
             route = Screens.Home.route,
         ){
-//            if(!BUTTON){
-//                MENU_VALUE = ""
-//                MENU_VALUE_MACHINE = ""
-//                INDEX_CLASS_MACHINE = -1
-//                BUTTON = true
-//            }
-//            BUTTON = false
             priceViewModel.getPrice()
             ScreenHome(
                 navController = navController,
@@ -75,7 +68,6 @@ fun NavGraphSetup(
             if (!PAYMENT_SUCCESS){
                 paymentViewModel.getQR()
             }
-//            PAYMENT_SUCCESS = false
             ScreenQris(
                 navController = navController,
                 paymentViewModel = paymentViewModel,
@@ -87,7 +79,7 @@ fun NavGraphSetup(
         composable(
             route = Screens.ListTransactionsActive.route,
         ){
-            transactionViewModel.getTransaction()
+            transactionViewModel.getFilterTransactionActive()
             ScreenTransaction(navController = navController, transactionViewModel = transactionViewModel)
         }
 
@@ -95,9 +87,16 @@ fun NavGraphSetup(
             route = Screens.ListTransactions.route,
         ){
             if (DATE_PICK != ""){
-                transactionViewModel.getFilterTransaction()
+                transactionViewModel.getTransaction()
             }
             ScreenTransactionList(navController = navController, transactionViewModel = transactionViewModel, excelViewModel = excelViewModel)
+        }
+
+        composable(
+            route = Screens.MachineDryer.route,
+        ){
+            machineViewModel.getMachine()
+            ScreenMachineListDryerOnly(navController = navController, machineViewModel = machineViewModel, transactionViewModel = transactionViewModel)
         }
 
     }

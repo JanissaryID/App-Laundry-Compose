@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.mylaundryapp.INDEX_CLASS_MACHINE
 import com.example.mylaundryapp.MENU_VALUE
 import com.example.mylaundryapp.api.machine.MachineModel
@@ -20,7 +21,7 @@ import com.example.mylaundryapp.components.view.ViewTransactionActive
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ColumnTransaction(transactionModel: List<TransactionModel>, selectedIndex: Int, onItemClick: (Int) -> Unit){
+fun ColumnTransaction(navController: NavController,is_list: Boolean,transactionModel: List<TransactionModel>, selectedIndex: Int, onItemClick: (Int) -> Unit){
     val context = LocalContext.current
     LazyColumn(
         contentPadding = PaddingValues(vertical = 8.dp),
@@ -34,6 +35,10 @@ fun ColumnTransaction(transactionModel: List<TransactionModel>, selectedIndex: I
                 date = transaction.transactionDate.toString(),
                 price = transaction.transactionPrice.toString(),
                 payment = transaction.transactionTypePayment.toString(),
+                is_packet = transaction.isPacket!!,
+                is_list_transaction = is_list,
+                step_one = transaction.stepOne!!,
+                navController = navController,
                 index = transaction.id!!.toInt()
             ){}
         }

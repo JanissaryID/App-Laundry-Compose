@@ -16,12 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import com.example.mylaundryapp.DRYER_INDEX_TRANSACTION
+import com.example.mylaundryapp.INDEX_CLASS_MACHINE
+import com.example.mylaundryapp.MENU_VALUE
 import com.example.mylaundryapp.components.ButtonView
-import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
+import com.example.mylaundryapp.navigation.Screens
 
 @Composable
 fun ViewTransactionActive(
@@ -32,6 +35,11 @@ fun ViewTransactionActive(
     price: String,
     index: Int,
     payment: String,
+    is_packet: Boolean,
+    is_list_transaction: Boolean,
+    step_one: Boolean,
+    navController: NavController,
+//    idTransaction: Int,
     onClick: (Int) -> Unit
 ) {
     val context = LocalContext.current
@@ -63,7 +71,7 @@ fun ViewTransactionActive(
                     .fillMaxWidth()
             ) {
 
-                val (TitleMenu, MenuMachine, ClassMachine, Date, Price, Payment, ButtonActive) = createRefs()
+                val (TitleMenu, MenuMachine, ClassMachine, Date, Price, Payment) = createRefs()
 
                 Text(
                     text = title_Menu,
@@ -142,26 +150,20 @@ fun ViewTransactionActive(
                         }
                 )
             }
-
-            if(title_Menu == "Wash Iron"){
-                if(expandedState) {
-                    ButtonView(
-                        title = "Active Dryer",
-                        enable = true,
-                        modifier = Modifier.padding(top = 16.dp)
-                    ) {
-                        Toast.makeText(context, "Index ID $index", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            else if(title_Menu == "Sell Service"){
-                if(expandedState) {
-                    ButtonView(
-                        title = "Active Dryer",
-                        enable = true,
-                        modifier = Modifier.padding(top = 16.dp)
-                    ) {
-                        Toast.makeText(context, "Index ID $index", Toast.LENGTH_SHORT).show()
+            if(!is_list_transaction){
+                if(is_packet){
+                    if(expandedState) {
+                        ButtonView(
+                            title = "Active Dryer",
+                            enable = if (step_one) true else false,
+                            modifier = Modifier.padding(top = 16.dp)
+                        ) {
+                            INDEX_CLASS_MACHINE = if(class_machine == "Giant") 0 else 1
+                            MENU_VALUE = "Dryer"
+                            DRYER_INDEX_TRANSACTION = index
+                            navController.navigate(route = Screens.MachineDryer.route)
+//                            Toast.makeText(context, "Index ID $index", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -169,18 +171,21 @@ fun ViewTransactionActive(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TransactionPreview() {
-    MyLaundryAppTheme {
-        ViewTransactionActive(
-            title_Menu = "Washer",
-            menu_machine = "Extra Wash",
-            class_machine = "Giant",
-            date = "02-04-2020",
-            price = "25000",
-            payment = "Qris",
-            index = 1
-        ){}
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TransactionPreview() {
+//    MyLaundryAppTheme {
+//        ViewTransactionActive(
+//            title_Menu = "Washer",
+//            menu_machine = "Extra Wash",
+//            class_machine = "Giant",
+//            date = "02-04-2020",
+//            price = "25000",
+//            payment = "Qris",
+//            is_packet = true,
+//            is_list_transaction = true,
+//            step_one = true,
+//            index = 1
+//        ){}
+//    }
+//}

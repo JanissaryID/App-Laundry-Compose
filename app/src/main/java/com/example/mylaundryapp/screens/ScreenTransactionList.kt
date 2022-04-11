@@ -71,6 +71,8 @@ fun WallTransactionList(
             transaction = transaction,
             transactionState = stateTransaction,
             selectedIndex = selectedIndex,
+            is_list = true,
+            navController = navController,
             onItemClick = onItemClick
         )
     }
@@ -100,11 +102,11 @@ fun TransactionScaffoldList(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun SettingPreview() {
-    MyLaundryAppTheme {
-        ScreenTransactionList(navController = rememberNavController(), transactionViewModel = TransactionViewModel(), excelViewModel = ExcelViewModel())
-    }
-}
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Preview(showBackground = true)
+//@Composable
+//fun SettingPreview() {
+//    MyLaundryAppTheme {
+//        ScreenTransactionList(navController = rememberNavController(), transactionViewModel = TransactionViewModel(), excelViewModel = ExcelViewModel())
+//    }
+//}

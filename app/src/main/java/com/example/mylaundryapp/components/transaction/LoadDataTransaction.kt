@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.mylaundryapp.PAYMENT_SUCCESS
 import com.example.mylaundryapp.R
 import com.example.mylaundryapp.api.machine.MachineModel
@@ -29,6 +30,8 @@ fun LoadDataTransaction(
     transaction: List<TransactionModel>,
     transactionState: Int,
     selectedIndex: Int,
+    is_list: Boolean,
+    navController: NavController,
     onItemClick: (Int) -> Unit
 ) {
     val context = LocalContext.current
@@ -48,9 +51,9 @@ fun LoadDataTransaction(
             if (!transaction.isNullOrEmpty()){
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.TopCenter
                 ) {
-                    ColumnTransaction(transactionModel = transaction, selectedIndex = selectedIndex, onItemClick = onItemClick)
+                    ColumnTransaction(is_list = is_list,transactionModel = transaction, selectedIndex = selectedIndex, onItemClick = onItemClick, navController = navController)
                 }
 
             }

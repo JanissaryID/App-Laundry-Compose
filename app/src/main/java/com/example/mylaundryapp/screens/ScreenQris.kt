@@ -119,19 +119,16 @@ fun QrScreenWall(
         }, enable = if(PAYMENT_SUCCESS) true else false){
 
 //            Toast.makeText(context, "MENU $MENU_VALUE", Toast.LENGTH_SHORT).show()
-//            machineViewModel.updateMachine(idMachine = MACHINE_ID)
+            machineViewModel.updateMachine(idMachine = MACHINE_ID)
             transactionViewModel.insertTransaction(
                 classmachine = if(INDEX_CLASS_MACHINE == 0) false else true,
-                numbermachine = MACHINE_NUMBER,
+                idmachine = MACHINE_ID,
                 price = PRICE_VALUE[0].price!!,
                 typetransaction = MENU_VALUE,
                 typePaymentTransaction = true,
                 navController = navController,
-                transactionMenuMachine = MENU_VALUE_MACHINE
+                transactionMenuMachine = MENU_VALUE_MACHINE,
             )
-            MENU_VALUE = ""
-            MENU_VALUE_MACHINE = ""
-            INDEX_CLASS_MACHINE = -1
             paymentViewModel.reffID = 0L
         }
     }

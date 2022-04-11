@@ -136,6 +136,9 @@ fun DropDownMenu(
                         )
                     }
                 }
+//                if (!CLICKED_BUTTON){
+//                    TITLE_MENU_MACHINE.clear()
+//                }
                 val menuTitle = TITLE_MENU_MACHINE.toSet().toMutableList()
                 DropdownMenu(
                         expanded = expanded,

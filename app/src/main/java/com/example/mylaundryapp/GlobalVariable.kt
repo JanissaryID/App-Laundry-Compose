@@ -23,9 +23,6 @@ var TITLE_MENU_MACHINE:ArrayList<PriceModelMenu> by mutableStateOf(arrayListOf()
 var SELECTED_INDEX: Int by mutableStateOf(-1)
 var TEMP_SELECTED_INDEX: Int by mutableStateOf(-1)
 val ON_CLICK_INDEX = { index: Int -> SELECTED_INDEX = index}
-//var BUTTON = false
-
-//var CLICKED_BUTTON: Boolean by mutableStateOf(false)
 
 //Machine List Variable
 var ENABLE_BUTTON: Boolean by mutableStateOf(false)
@@ -55,6 +52,7 @@ var IP_ADDRESS: String by mutableStateOf("")
 //Transaction Variable
 var TRANSACTION_ACTIVE: Int by mutableStateOf(0)
 var IS_DIALOG_OPEN =  mutableStateOf(false)
+var DRYER_INDEX_TRANSACTION: Int by mutableStateOf(0)
 
 //Excel Variable
 var EXCEL_VALUE:List<TransactionModel> by mutableStateOf(arrayListOf())

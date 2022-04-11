@@ -69,6 +69,14 @@ fun ScreenHome(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WallHome(navController: NavController, priceViewModel: PriceViewModel, machineViewModel: MachineViewModel) {
+//    if (!CLICKED_BUTTON){
+//        MENU_VALUE = ""
+//        MENU_VALUE_MACHINE = ""
+//        INDEX_CLASS_MACHINE = -1
+//        CLICKED_BUTTON = true
+//    }
+//    paymentViewModel.reffID = 0L
+    Log.d("debug", "Data home : $MENU_VALUE - $INDEX_CLASS_MACHINE - $MENU_VALUE_MACHINE")
 
     if (!VALUE_SETTING.isNullOrEmpty()){
         IP_ADDRESS = VALUE_SETTING[0].valueSetting.toString()
@@ -119,7 +127,6 @@ fun WallHome(navController: NavController, priceViewModel: PriceViewModel, machi
                 false
             }
         ){
-//            CLICKED_BUTTON = true
             navController.navigate(route = Screens.Machine.route)
 //            Toast.makeText(context, "Value Menu $MENU_VALUE And $INDEX_CLASS_MACHINE and $INDEX_CLASS_MACHINE", Toast.LENGTH_SHORT).show()
         }

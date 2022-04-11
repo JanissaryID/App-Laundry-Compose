@@ -1,6 +1,7 @@
 package com.example.mylaundryapp.screens
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -24,12 +25,12 @@ import com.example.mylaundryapp.navigation.Screens
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ScreenMachineList(
+fun ScreenMachineListDryerOnly(
     navController: NavController,
     machineViewModel: MachineViewModel,
     transactionViewModel: TransactionViewModel
 ){
-    MachineScaffold(
+    MachineScaffoldDryerOnly(
         navController = navController,
         machineViewModel = machineViewModel,
         transactionViewModel = transactionViewModel
@@ -39,7 +40,7 @@ fun ScreenMachineList(
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MachineWall(
+fun MachineWallDryerOnly(
     navController: NavController,
     machineViewModel: MachineViewModel,
     transactionViewModel: TransactionViewModel
@@ -58,11 +59,11 @@ fun MachineWall(
     ConstraintLayout(modifier = Modifier
         .fillMaxSize()
         .padding(start = 16.dp, end = 16.dp)) {
-        val (button_Qris, button_Cash, content) = createRefs()
+        val (button_active, content) = createRefs()
         val modifier: Modifier = Modifier
 
         Box(modifier = modifier.constrainAs(content) {
-            bottom.linkTo(button_Cash.top, 16.dp)
+            bottom.linkTo(button_active.top, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
             top.linkTo(parent.top)
@@ -70,39 +71,23 @@ fun MachineWall(
             LoadDataMachine(machine = machine,machineState = stateMachine, selectedIndex = selectedIndex, onItemClick = onItemClick)
         }
 
-        ButtonView(title = "Pay with Cash", modifier.constrainAs(button_Cash) {
-            bottom.linkTo(button_Qris.top, 16.dp)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, ENABLE_BUTTON){
-//            Toast.makeText(context, "Price ${PRICE_SERVICE_LAUNDRY}", Toast.LENGTH_SHORT).show()
-            machineViewModel.updateMachine(idMachine = MACHINE_ID)
-            transactionViewModel.insertTransaction(
-                classmachine = if(INDEX_CLASS_MACHINE == 0) false else true,
-                idmachine = MACHINE_ID,
-                price = PRICE_VALUE[0].price!!,
-                typetransaction = MENU_VALUE,
-                typePaymentTransaction = false,
-                navController = navController,
-                transactionMenuMachine = MENU_VALUE_MACHINE,
-            )
-        }
-
-        ButtonView(title = "Pay with Qris", modifier.constrainAs(button_Qris) {
+        ButtonView(title = "Active Machine", modifier.constrainAs(button_active) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, ENABLE_BUTTON){
-            PAYMENT_SUCCESS = false
-//            Toast.makeText(context, "Machine Number $MACHINE_NUMBER price $price", Toast.LENGTH_SHORT).show()
-            navController.navigate(route = Screens.Qris.route)
+            machineViewModel.updateMachine(idMachine = MACHINE_ID)
+            transactionViewModel.updateTransaction(
+                idTransaction = DRYER_INDEX_TRANSACTION,
+                navController = navController
+            )
         }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MachineScaffold(
+fun MachineScaffoldDryerOnly(
     navController: NavController,
     machineViewModel: MachineViewModel,
     transactionViewModel: TransactionViewModel
@@ -114,7 +99,7 @@ fun MachineScaffold(
         },
         backgroundColor = MaterialTheme.colors.onPrimary
     ){
-        MachineWall(
+        MachineWallDryerOnly(
             navController = navController,
             machineViewModel = machineViewModel,
             transactionViewModel = transactionViewModel
