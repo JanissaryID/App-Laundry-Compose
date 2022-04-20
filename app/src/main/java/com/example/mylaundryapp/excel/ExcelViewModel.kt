@@ -96,6 +96,7 @@ class ExcelViewModel: ViewModel() {
             sheet.setColumnView(3,15)
             sheet.setColumnView(4,15)
             sheet.setColumnView(5,15)
+            sheet.setColumnView(6,15)
 
             sheet.mergeCells(0,0,0,1)
             sheet.mergeCells(1,0,1,1)
@@ -103,26 +104,29 @@ class ExcelViewModel: ViewModel() {
             sheet.mergeCells(3,0,3,1)
             sheet.mergeCells(4,0,4,1)
             sheet.mergeCells(5,0,5,1)
+            sheet.mergeCells(6,0,6,1)
 
             // column and row title
             sheet.addCell(Label(0, 0, "No.", format1))
             sheet.addCell(Label(1, 0, "Type",format1))
             sheet.addCell(Label(2, 0, "Date",format1))
             sheet.addCell(Label(3, 0, "Class",format1))
-            sheet.addCell(Label(4, 0, "Price",format1))
+            sheet.addCell(Label(4, 0, "Payment",format1))
+            sheet.addCell(Label(5, 0, "Price",format1))
             for (i in EXCEL_VALUE.indices) {
                 sheet.addCell(Label(0, i + 2, (i+1).toString(), format2))
                 sheet.addCell(Label(1, i + 2, EXCEL_VALUE[i].transactionTypeMenu, format4))
                 sheet.addCell(Label(2, i + 2, EXCEL_VALUE[i].transactionDate, format2))
                 sheet.addCell(Label(3, i + 2, EXCEL_VALUE[i].transactionClassMachine,format2))
-                sheet.addCell(Label(4, i + 2, EXCEL_VALUE[i].transactionPrice,format2))
+                sheet.addCell(Label(4, i + 2, EXCEL_VALUE[i].transactionTypePayment,format2))
+                sheet.addCell(Label(5, i + 2, EXCEL_VALUE[i].transactionPrice,format2))
                 sumPrice += EXCEL_VALUE[i].transactionPrice!!.toInt()
             }
             var celllist : Int = EXCEL_VALUE.size + 2
 
-            sheet.mergeCells(0,celllist,3,celllist)
+            sheet.mergeCells(0,celllist,4,celllist)
             sheet.addCell(Label(0, celllist, "Total",format3))
-            sheet.addCell(Label(4, celllist, "$sumPrice",format3))
+            sheet.addCell(Label(5, celllist, "$sumPrice",format3))
             stateExcel = 1
         } catch (e: java.lang.Exception) {
             e.printStackTrace()

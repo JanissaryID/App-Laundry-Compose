@@ -101,6 +101,10 @@ class TransactionViewModel: ViewModel() {
                         TRANSACTION_ACTIVE = transactionListResponse.size
                         Log.d("debug", "Code : ${TRANSACTION_ACTIVE}")
                     }
+                    else if(response.code() == 404){
+                        stateTransaction = 3
+                    }
+                    Log.d("debug", "Response : ${response.code()}")
                 }
 
                 override fun onFailure(call: Call<List<TransactionModel>>, t: Throwable) {
@@ -136,6 +140,9 @@ class TransactionViewModel: ViewModel() {
                         }
                         TRANSACTION_ACTIVE = transactionListResponse.size
                         Log.d("debug", "Code : ${TRANSACTION_ACTIVE}")
+                    }
+                    else if(response.code() == 404){
+                        stateTransaction = 3
                     }
                 }
 

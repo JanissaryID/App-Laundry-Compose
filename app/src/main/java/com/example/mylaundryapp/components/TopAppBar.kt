@@ -24,7 +24,7 @@ fun TopAppBarView(
     title: String,
     screenBack: String
 ) {
-    val context = LocalContext.current
+//    val context = LocalContext.current
 
     TopAppBar(
         title = {
@@ -64,7 +64,7 @@ fun TopAppBarViewHome(
     navController: NavController,
     title: String,
 ) {
-    val context = LocalContext.current
+//    val context = LocalContext.current
 
     TopAppBar(
         title = {

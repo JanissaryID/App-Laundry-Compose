@@ -36,7 +36,7 @@ fun DropDownMenu(
     priceViewModel: PriceViewModel
 ) {
 
-    val context = LocalContext.current
+//    val context = LocalContext.current
 
     TEMP_MENU_VALUE = MENU_VALUE
 

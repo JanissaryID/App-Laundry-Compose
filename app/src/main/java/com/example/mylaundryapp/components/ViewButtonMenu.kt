@@ -27,7 +27,7 @@ fun ViewButtonMenu(
     onClick: (Int) -> Unit
 ) {
 //    TEMP_SELECTED_INDEX = index
-    val context = LocalContext.current
+//    val context = LocalContext.current
     TEMP_SELECTED_INDEX = INDEX_CLASS_MACHINE
     Card(
         modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, start = 4.dp, end = 4.dp),

@@ -33,7 +33,7 @@ fun TransactionItem(
     title: String = "Transaction Active",
      onClick: () -> Unit
 ) {
-    val context = LocalContext.current
+//    val context = LocalContext.current
 
     val modifier = Modifier
 

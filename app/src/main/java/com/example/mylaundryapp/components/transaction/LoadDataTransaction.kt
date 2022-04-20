@@ -72,5 +72,19 @@ fun LoadDataTransaction(
 //            Log.d("debug", "Error")
             Toast.makeText(context, "Can't load data", Toast.LENGTH_SHORT).show()
         }
+        3 -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No Transaction",
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.primary,
+                )
+            }
+//            Log.d("debug", "Error")
+//            Toast.makeText(context, "No Transaction", Toast.LENGTH_SHORT).show()
+        }
     }
 }

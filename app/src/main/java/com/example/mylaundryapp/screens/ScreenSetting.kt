@@ -1,7 +1,10 @@
 package com.example.mylaundryapp.screens
 
+import android.app.Application
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +34,7 @@ import com.example.mylaundryapp.components.ButtonView
 import com.example.mylaundryapp.components.TextFieldOutline
 import com.example.mylaundryapp.components.TopAppBarView
 import com.example.mylaundryapp.components.view.ViewSetting
+import com.example.mylaundryapp.excel.ExcelViewModel
 import com.example.mylaundryapp.navigation.Screens
 import com.example.mylaundryapp.room.setting.SettingItem
 import com.example.mylaundryapp.room.setting.SettingViewModel
@@ -50,10 +54,10 @@ fun WallSetting(navController: NavController,settingViewModel: SettingViewModel)
     val scrollState = rememberScrollState()
 
     ConstraintLayout(modifier = Modifier
-        .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
         .fillMaxSize()
     ) {
-        val (content,button_pick_machine) = createRefs()
+        val content = createRef()
         val modifier = Modifier
 
         LazyColumn(
@@ -80,7 +84,6 @@ fun WallSetting(navController: NavController,settingViewModel: SettingViewModel)
                     settingViewModel.updateSettings(settingItem)
                 }
             }
-
         }
     }
 }
@@ -116,4 +119,16 @@ fun insertData(settingViewModel: SettingViewModel) {
         settingViewModel.addSettings(settingItem)
     }
 }
+
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Preview(showBackground = true)
+//@Composable
+//fun SettingPreview() {
+//    MyLaundryAppTheme {
+//        SettingScaffold(navController = rememberNavController(), settingViewModel = SettingViewModel(
+//            Application()
+//        ))
+//    }
+//}
+
 
