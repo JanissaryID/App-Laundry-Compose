@@ -1,23 +1,20 @@
 package com.example.mylaundryapp.api.machine
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MachineService {
-    @GET("/fetch-machine")
+    @GET("Machine")
     fun fetchMachine(): Call<List<MachineModel>>
 
-    @GET("/filter-machine")
+    @GET("Machine")
     fun fetchFilterMachine(
-        @Query(value="classes", encoded=true) classes: Boolean?,
-        @Query(value="type", encoded=true) type: Boolean?
+        @Query(value="machine_class", encoded=true) classes: Boolean?,
+        @Query(value="machine_type", encoded=true) type: Boolean?
     ): Call<List<MachineModel>>
 
-    @PUT("/update-status-machine")
+    @PATCH("Machine/{id}")
     fun putMachine(
-        @Query(value="id", encoded=true) sl_id: Int?, @Body updateData : MachineModelUpdate
+        @Path("id") id: Int?, @Body updateData : MachineModelUpdate
     ): Call<MachineModelUpdate>
 }

@@ -1,9 +1,7 @@
 package com.example.mylaundryapp.components
 
-import android.util.Log
-import android.widget.Toast
+
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,15 +10,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.example.mylaundryapp.*
@@ -28,7 +23,6 @@ import com.example.mylaundryapp.api.price.PriceModel
 import com.example.mylaundryapp.api.price.PriceModelMenu
 import com.example.mylaundryapp.api.price.PriceModelView
 import com.example.mylaundryapp.api.price.PriceViewModel
-import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
 
 @Composable
 fun DropDownMenu(
@@ -46,18 +40,15 @@ fun DropDownMenu(
         mutableStateOf(listOf())
     }
 
-    if (!IP_ADDRESS.isNullOrEmpty()){
-//        Log.d("debug", "IP in DropDown : $IP_ADDRESS")
-        price = priceViewModel.priceListResponse
-    }
-    var titleMenu:ArrayList<PriceModelMenu> by remember { mutableStateOf(arrayListOf()) }
+    price = priceViewModel.priceListResponse
+    val titleMenu:ArrayList<PriceModelMenu> by remember { mutableStateOf(arrayListOf()) }
 
     price.forEach { priceValue ->
         titleMenu.add(
             PriceModelMenu(priceTypeMenu = priceValue.priceTypeMenu)
         )
     }
-    val Menu = titleMenu.toSet()
+    val menu = titleMenu.toSet()
 
     var selectedText by remember { mutableStateOf("") }
 //    var selectedTextMenuMachine by remember { mutableStateOf("") }
@@ -105,7 +96,7 @@ fun DropDownMenu(
                 modifier = Modifier
                     .width(with(LocalDensity.current){textfieldSize.width.toDp()})
             ) {
-                Menu.forEach { label ->
+                menu.forEach { label ->
                     DropdownMenuItem(onClick = {
                         selectedText = label.priceTypeMenu.toString()
                         MENU_VALUE = selectedText
@@ -116,7 +107,7 @@ fun DropDownMenu(
                             INDEX_CLASS_MACHINE = -1
                             TITLE_MENU_MACHINE.clear()
                         }
-                        if(expanded == false){
+                        if(!expanded){
                             MENU_VALUE_MACHINE = ""
                         }
                     }) {
@@ -173,6 +164,7 @@ fun DropDownMenu(
                                 priceTime = priceValue.priceTime,
                                 priceTitle = priceValue.priceTitle,
                                 id = priceValue.id,
+                                isPacket = priceValue.isPacket
                             )
                         )
                     }

@@ -7,8 +7,14 @@ data class MachineModel(
 	@field:SerializedName("machine_type")
 	val machineType: Boolean? = null,
 
+	@field:SerializedName("is_packet")
+	val isPacket: Boolean? = null,
+
 	@field:SerializedName("machine_status")
 	val machineStatus: Boolean? = null,
+
+	@field:SerializedName("__powered_by")
+	val poweredBy: String? = null,
 
 	@field:SerializedName("machine_number")
 	val machineNumber: Int? = null,
@@ -19,6 +25,6 @@ data class MachineModel(
 	@field:SerializedName("machine_class")
 	val machineClass: Boolean? = null,
 
-	@field:SerializedName("id")
-	val id: Int? = null
+	@field:SerializedName("_id")
+	val id: String? = null
 )

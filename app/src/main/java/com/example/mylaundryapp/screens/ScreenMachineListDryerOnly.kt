@@ -76,7 +76,7 @@ fun MachineWallDryerOnly(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, ENABLE_BUTTON){
-            machineViewModel.updateMachine(idMachine = MACHINE_ID)
+            machineViewModel.updateMachine(idMachine = MACHINE_ID, isPacket = PRICE_VALUE[0].isPacket!!)
             transactionViewModel.updateTransaction(
                 idTransaction = DRYER_INDEX_TRANSACTION,
                 navController = navController

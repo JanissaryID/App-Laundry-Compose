@@ -1,5 +1,6 @@
 package com.example.mylaundryapp.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -62,11 +63,12 @@ fun WallTransaction(navController: NavController, transactionViewModel: Transact
 fun TransactionScaffold(navController: NavController, transactionViewModel: TransactionViewModel) {
     val context = LocalContext.current
     Scaffold(
-        topBar = { TopAppBarView(
+        topBar = {
+            TopAppBarView(
             navController = navController,
             title = TITLE_SCREEN[2],
-            screenBack = Screens.Home.route
-        ) },
+            screenBack = Screens.Home.route)
+         },
         backgroundColor = MaterialTheme.colors.onPrimary
     ){
         WallTransaction(navController = navController, transactionViewModel = transactionViewModel)

@@ -39,7 +39,8 @@ fun ColumnTransaction(navController: NavController,is_list: Boolean,transactionM
                 is_list_transaction = is_list,
                 step_one = transaction.stepOne!!,
                 navController = navController,
-                index = transaction.id!!.toInt()
+                index = transaction.id!!.toString(),
+                number_machine = transaction.transactionNumberMachine!!
             ){}
         }
     }

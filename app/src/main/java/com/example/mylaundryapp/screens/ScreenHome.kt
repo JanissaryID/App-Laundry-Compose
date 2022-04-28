@@ -79,7 +79,7 @@ fun WallHome(navController: NavController, priceViewModel: PriceViewModel, machi
     Log.d("debug", "Data home : $MENU_VALUE - $INDEX_CLASS_MACHINE - $MENU_VALUE_MACHINE")
 
     if (!VALUE_SETTING.isNullOrEmpty()){
-        IP_ADDRESS = VALUE_SETTING[0].valueSetting.toString()
+        KEY_URL = VALUE_SETTING[0].valueSetting.toString()
         CLIENT_ID = VALUE_SETTING[1].valueSetting.toString()
         CLIENT_KEY = VALUE_SETTING[2].valueSetting.toString()
         MERCHANT_ID = VALUE_SETTING[3].valueSetting.toString()

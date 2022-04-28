@@ -1,6 +1,7 @@
 package com.example.mylaundryapp.screens
 
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -44,10 +45,7 @@ fun MachineWall(
     machineViewModel: MachineViewModel,
     transactionViewModel: TransactionViewModel
 ) {
-//    CLICKED_BUTTON = false
     val context = LocalContext.current
-
-//    var enabled by remember { mutableStateOf(false) }
 
     var selectedIndex by remember { mutableStateOf(-1) }
     val onItemClick = { index: Int -> selectedIndex = index}
@@ -76,7 +74,7 @@ fun MachineWall(
             end.linkTo(parent.end)
         }, ENABLE_BUTTON){
 //            Toast.makeText(context, "Price ${PRICE_SERVICE_LAUNDRY}", Toast.LENGTH_SHORT).show()
-            machineViewModel.updateMachine(idMachine = MACHINE_ID)
+            machineViewModel.updateMachine(idMachine = MACHINE_ID, isPacket = PRICE_VALUE[0].isPacket!!)
             transactionViewModel.insertTransaction(
                 classmachine = if(INDEX_CLASS_MACHINE == 0) false else true,
                 idmachine = MACHINE_ID,
@@ -85,6 +83,7 @@ fun MachineWall(
                 typePaymentTransaction = false,
                 navController = navController,
                 transactionMenuMachine = MENU_VALUE_MACHINE,
+                numbermachine = MACHINE_NUMBER
             )
         }
 
@@ -110,6 +109,9 @@ fun MachineScaffold(
     val context = LocalContext.current
     Scaffold(
         topBar = {
+//            BackHandler(enabled = true) {
+//
+//            }
             TopAppBarView(navController = navController, title = "Machine", screenBack = Screens.Home.route)
         },
         backgroundColor = MaterialTheme.colors.onPrimary

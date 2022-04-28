@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.mylaundryapp.IP_ADDRESS
+import com.example.mylaundryapp.KEY_URL
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +26,7 @@ class PriceViewModel: ViewModel() {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
                     while (true){
-                        if (!IP_ADDRESS.isNullOrEmpty()){
+                        if (!KEY_URL.isNullOrEmpty()){
                             PriceApp.CreateInstance().fetchPrice().enqueue(object :
                                 Callback<List<PriceModel>> {
                                 override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {

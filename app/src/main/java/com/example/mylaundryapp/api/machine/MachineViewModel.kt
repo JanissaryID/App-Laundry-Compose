@@ -26,6 +26,7 @@ class MachineViewModel: ViewModel() {
             ).enqueue(object :
                 Callback<List<MachineModel>> {
                 override fun onResponse(call: Call<List<MachineModel>>, response: Response<List<MachineModel>>) {
+//                    Log.d("debug", "Code : ${response.code().toString()}")
                     stateMachine = 0
                     if(response.code() == 200){
                         response.body()?.let {
@@ -49,20 +50,21 @@ class MachineViewModel: ViewModel() {
             })
         }
         catch (e : Exception){
-//            Log.d("debug", "ERROR")
             errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
 //            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun updateMachine(idMachine: Int){
-        val bodyUpdate = MachineModelUpdate(true)
+    fun updateMachine(idMachine: Int, isPacket: Boolean){
+        val bodyUpdate = MachineModelUpdate(machineStatus = true, isPacket = isPacket)
 
         try {
-            MachineApp.CreateInstance().putMachine(idMachine, bodyUpdate).enqueue(object : Callback<MachineModelUpdate> {
+            MachineApp.CreateInstance().putMachine(id = idMachine, bodyUpdate).enqueue(object : Callback<MachineModelUpdate> {
                 override fun onResponse(call: Call<MachineModelUpdate>, response: Response<MachineModelUpdate>) {
+//                    Log.d("debug", "Code ${response.code()}")
                     if(response.code() == 200){
-
+//                        Log.d("debug", "Code ${response.code()}")
                     }
                 }
 
@@ -75,7 +77,8 @@ class MachineViewModel: ViewModel() {
             })
         }
         catch (e : Exception){
-            Log.d("debug", "ERROR")
+            errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
 //            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
         }
     }

@@ -16,15 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.mylaundryapp.DRYER_INDEX_TRANSACTION
 import com.example.mylaundryapp.INDEX_CLASS_MACHINE
 import com.example.mylaundryapp.MENU_VALUE
 import com.example.mylaundryapp.components.ButtonView
 import com.example.mylaundryapp.navigation.Screens
+import com.example.mylaundryapp.ui.theme.MyLaundryAppTheme
 
 @Composable
 fun ViewTransactionActive(
@@ -33,14 +36,15 @@ fun ViewTransactionActive(
     class_machine: String,
     date: String,
     price: String,
-    index: Int,
+    index: String,
     payment: String,
     is_packet: Boolean,
     is_list_transaction: Boolean,
     step_one: Boolean,
     navController: NavController,
+    number_machine: Int,
 //    idTransaction: Int,
-    onClick: (Int) -> Unit
+    onClick: (String) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -71,7 +75,21 @@ fun ViewTransactionActive(
                     .fillMaxWidth()
             ) {
 
-                val (TitleMenu, MenuMachine, ClassMachine, Date, Price, Payment) = createRefs()
+                val (NumberTitle, TitleMenu, MenuMachine, ClassMachine, Date, Price, Payment) = createRefs()
+
+                Text(
+                    text = number_machine.toString(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .constrainAs(NumberTitle)
+                        {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        }
+                )
 
                 Text(
                     text = title_Menu,
@@ -81,7 +99,7 @@ fun ViewTransactionActive(
                         .wrapContentHeight()
                         .constrainAs(TitleMenu)
                         {
-                            top.linkTo(parent.top)
+                            top.linkTo(NumberTitle.bottom)
                             start.linkTo(parent.start, 4.dp)
                         }
                 )
@@ -119,7 +137,7 @@ fun ViewTransactionActive(
                         .wrapContentHeight()
                         .constrainAs(Date)
                         {
-                            top.linkTo(parent.top, 4.dp)
+                            top.linkTo(NumberTitle.bottom, 4.dp)
                             end.linkTo(parent.end, 4.dp)
                         }
                 )
@@ -175,7 +193,7 @@ fun ViewTransactionActive(
 //@Composable
 //fun TransactionPreview() {
 //    MyLaundryAppTheme {
-//        ViewTransactionActive(
+//        ViewTransactionActivePrev(
 //            title_Menu = "Washer",
 //            menu_machine = "Extra Wash",
 //            class_machine = "Giant",
@@ -185,7 +203,8 @@ fun ViewTransactionActive(
 //            is_packet = true,
 //            is_list_transaction = true,
 //            step_one = true,
-//            index = 1
-//        ){}
+//            index = 1,
+//            number_machine = 6
+//        )
 //    }
 //}

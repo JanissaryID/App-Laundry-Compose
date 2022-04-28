@@ -29,6 +29,7 @@ class TransactionViewModel: ViewModel() {
     fun insertTransaction(
         classmachine: Boolean,
         idmachine: Int,
+        numbermachine: Int,
         price: String,
         typetransaction: String,
         typePaymentTransaction: Boolean,
@@ -46,14 +47,15 @@ class TransactionViewModel: ViewModel() {
             transactionStore = 1,
             transactionTypePayment = if(typePaymentTransaction) "Qris" else "Cash",
             transactionPrice = price,
-            transactionNumberMachine = idmachine,
+            transactionNumberMachine = numbermachine,
             transactionClassMachine = if(classmachine) "Titan" else "Giant",
             transactionDate = date,
             transactionTypeMenu = typetransaction,
             transactionMenuMachine = transactionMenuMachine,
             isPacket = if(MENU_VALUE == "Wash Iron" || MENU_VALUE == "Sell Service") true else false,
             stepOne = false,
-            transactionFinish = false
+            transactionFinish = false,
+            transactionIdMachine = idmachine
         )
 
         TransactionApp.CreateInstance().insertTransactions(bodyUpdate).enqueue(object :
@@ -90,21 +92,22 @@ class TransactionViewModel: ViewModel() {
                 Callback<List<TransactionModel>> {
                 override fun onResponse(call: Call<List<TransactionModel>>, response: Response<List<TransactionModel>>) {
                     Log.d("debug", "Date : ${DATE_PICK}")
+                    Log.d("debug", "Code : ${response.code()}")
                     stateTransaction = 0
                     if(response.code() == 200){
                         response.body()?.let {
                             transactionListResponse = response.body()!!
                             EXCEL_VALUE = transactionListResponse
-//                            Log.d("debug", "Code : ${machineListResponse}")
+                            Log.d("debug", "Code : ${transactionListResponse}")
                             stateTransaction = 1
                         }
                         TRANSACTION_ACTIVE = transactionListResponse.size
-                        Log.d("debug", "Code : ${TRANSACTION_ACTIVE}")
+//                        Log.d("debug", "Code : ${TRANSACTION_ACTIVE}")
                     }
                     else if(response.code() == 404){
                         stateTransaction = 3
                     }
-                    Log.d("debug", "Response : ${response.code()}")
+//                    Log.d("debug", "Response : ${response.code()}")
                 }
 
                 override fun onFailure(call: Call<List<TransactionModel>>, t: Throwable) {
@@ -130,6 +133,7 @@ class TransactionViewModel: ViewModel() {
             TransactionApp.CreateInstance().getFilterTransactionsFinish(finish =  false).enqueue(object :
                 Callback<List<TransactionModel>> {
                 override fun onResponse(call: Call<List<TransactionModel>>, response: Response<List<TransactionModel>>) {
+                    Log.d("debug", "Code : ${response.code()}")
                     stateTransaction = 0
                     if(response.code() == 200){
                         response.body()?.let {
@@ -163,14 +167,14 @@ class TransactionViewModel: ViewModel() {
         }
     }
 
-    fun updateTransaction(idTransaction: Int,navController: NavController){
+    fun updateTransaction(idTransaction: String, navController: NavController){
         val bodyUpdate = TransactionModel(
             stepOne = false,
             transactionNumberMachine = MACHINE_ID
         )
 
         try {
-            TransactionApp.CreateInstance().putTransaction(idTransaction, bodyUpdate).enqueue(object : Callback<TransactionModel> {
+            TransactionApp.CreateInstance().putTransaction(id = idTransaction, updateData = bodyUpdate).enqueue(object : Callback<TransactionModel> {
                 override fun onResponse(call: Call<TransactionModel>, response: Response<TransactionModel>) {
                     if(response.code() == 200){
 
@@ -183,7 +187,7 @@ class TransactionViewModel: ViewModel() {
                         MENU_VALUE = ""
                         MENU_VALUE_MACHINE = ""
                         INDEX_CLASS_MACHINE = -1
-                        DRYER_INDEX_TRANSACTION = 0
+                        DRYER_INDEX_TRANSACTION = ""
 
                     }
                 }

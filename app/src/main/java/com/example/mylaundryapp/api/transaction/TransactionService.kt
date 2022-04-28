@@ -5,29 +5,29 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface TransactionService {
-    @GET("/fetch-transactions")
+    @GET("Transaction")
     fun getTransactions(): Call<List<TransactionModel>>
 
     @PUT("/update-transaction")
     fun putTransaction(
-        @Query(value="id", encoded=true) id: Int?, @Body updateData : TransactionModel
+        @Query(value="id", encoded=true) id: String?, @Body updateData : TransactionModel
     ): Call<TransactionModel>
 
 //    @GET("/update-transaction")
 //    fun updateTransaction(@Query(value="id", encoded=true) id: Int?): Call<List<TransactionModel>>
 
-    @GET("/fetch-transactions-filter-finish-date")
+    @GET("Transaction")
     fun getFilterTransactionsFinishDate(
-        @Query(value="date", encoded=true) date: String?,
-        @Query(value="finish", encoded=true) finish: Boolean?
+        @Query(value="transaction_date", encoded=true) date: String?,
+        @Query(value="transaction_finish", encoded=true) finish: Boolean?
     ): Call<List<TransactionModel>>
 
-    @GET("/fetch-transactions-filter-finish")
+    @GET("Transaction")
     fun getFilterTransactionsFinish(
-        @Query(value="finish", encoded=true) finish: Boolean?
+        @Query(value="transaction_finish", encoded=true) finish: Boolean?
     ): Call<List<TransactionModel>>
 
-    @POST("/add-transaction")
+    @POST("Transaction")
     fun insertTransactions(@Body statusData: TransactionModel) : Call<TransactionModel>
 
 }

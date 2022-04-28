@@ -1,18 +1,14 @@
 package com.example.mylaundryapp.api.machine
 
-import android.util.Log
-import com.example.mylaundryapp.IP_ADDRESS
-import com.example.mylaundryapp.api.price.PriceApp
-import com.example.mylaundryapp.api.price.PriceService
+import com.example.mylaundryapp.KEY_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MachineApp {
-        private var BASE_URL = "http://$IP_ADDRESS:8000"
-//    private var BASE_URL = "http://192.168.112.244:8000"
+//    private var BASE_URL = "https://api.kontenbase.com/query/api/v1/9f3304b4-abc8-424e-8f73-f305ef4ac099/"
+    private var BASE_URL = "https://api.kontenbase.com/query/api/v1/$KEY_URL/"
 
     fun CreateInstance(): MachineService {
-//        Log.d("debug", "IP in Price : $IP_ADDRESS")
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

@@ -2,6 +2,7 @@ package com.example.mylaundryapp.components
 
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -25,6 +26,22 @@ fun TopAppBarView(
     screenBack: String
 ) {
 //    val context = LocalContext.current
+    BackHandler(enabled = true) {
+        navController.navigate(route = screenBack) {
+            if (screenBack == "machine_screen"){
+                PAYMENT_SUCCESS = true
+            }
+            else if (screenBack == "home_screen"){
+                MENU_VALUE = ""
+                MENU_VALUE_MACHINE = ""
+                INDEX_CLASS_MACHINE = -1
+                PAYMENT_SUCCESS = true
+            }
+            popUpTo(screenBack) {
+                inclusive = true
+            }
+        }
+    }
 
     TopAppBar(
         title = {
@@ -41,6 +58,12 @@ fun TopAppBarView(
                 onClick = {
                     navController.navigate(route = screenBack) {
                         if (screenBack == "machine_screen"){
+                            PAYMENT_SUCCESS = true
+                        }
+                        else if (screenBack == "home_screen"){
+                            MENU_VALUE = ""
+                            MENU_VALUE_MACHINE = ""
+                            INDEX_CLASS_MACHINE = -1
                             PAYMENT_SUCCESS = true
                         }
                         popUpTo(screenBack) {
@@ -97,7 +120,9 @@ fun TopAppBarViewTransactionList(
     excelViewModel: ExcelViewModel
 ) {
     val context = LocalContext.current
-
+    
+//    backPresedAction(navController = navController, screenBack = screenBack, typeScreen = 2)
+    
     TopAppBar(
         title = {
             Text(

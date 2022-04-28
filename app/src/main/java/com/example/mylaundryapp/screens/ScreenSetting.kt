@@ -108,7 +108,7 @@ fun SettingScaffold(navController: NavController,settingViewModel: SettingViewMo
 fun insertData(settingViewModel: SettingViewModel) {
     val context = LocalContext.current
 
-    val selectionMenu = listOf("IP Address", "Client ID", "Client Key", "Merchant ID")
+    val selectionMenu = listOf("Key API","Client ID", "Client Key", "Merchant ID")
 
     selectionMenu.forEachIndexed { index, s ->
         val settingItem = SettingItem(

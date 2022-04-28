@@ -41,7 +41,7 @@ fun ViewMachine(
                 .clickable {
                     if(!usedMachine){
                         MACHINE_NUMBER = machineModel.machineNumber!!
-                        MACHINE_ID = machineModel.id!!
+                        MACHINE_ID = machineModel.id!!.toInt()
                         onClick.invoke(index)
                     }
                 },

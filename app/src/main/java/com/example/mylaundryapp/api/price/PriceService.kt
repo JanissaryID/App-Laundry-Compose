@@ -8,6 +8,6 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface PriceService {
-    @GET("/fetch-price")
+    @GET("Price")
     fun fetchPrice(): Call<List<PriceModel>>
 }

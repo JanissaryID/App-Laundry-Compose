@@ -3,6 +3,10 @@ package com.example.mylaundryapp.api.price
 import com.google.gson.annotations.SerializedName
 
 data class PriceModelView(
+
+    @field:SerializedName("is_packet")
+    val isPacket: Boolean? = null,
+
     @field:SerializedName("price")
     val price: String? = null,
 

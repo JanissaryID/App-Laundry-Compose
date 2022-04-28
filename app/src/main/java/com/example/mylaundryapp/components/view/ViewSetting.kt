@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -13,6 +15,9 @@ import com.example.mylaundryapp.components.TextFieldOutline
 
 @Composable
 fun ViewSetting(modifier: Modifier, valueItem: String,texts: String = "Address", onClick: () -> Unit) {
+
+    val textValue = rememberSaveable { mutableStateOf(valueItem) }
+
     Card(shape = RoundedCornerShape(20.dp)) {
         ConstraintLayout(modifier = Modifier
             .wrapContentHeight()
@@ -25,7 +30,9 @@ fun ViewSetting(modifier: Modifier, valueItem: String,texts: String = "Address",
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }, valueItem = valueItem)
+                },
+                valueItem = textValue.value
+            )
 
             ButtonView(
                 title = "Save",

@@ -1,10 +1,7 @@
 package com.example.mylaundryapp.view
 
 import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -24,21 +21,25 @@ fun ButtonMenuView() {
 
     val selectionMenu = listOf("Giant", "Titan")
 
-    LazyRow(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(40.dp)
-    ){
+    Box(modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center) {
+        LazyRow(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(40.dp),
+            modifier = Modifier.wrapContentWidth()
+        ){
 
-        itemsIndexed(items = selectionMenu){index, menu ->
-            ViewButtonMenu(
-                title = menu,
-                index = if(SELECTED_INDEX != index){
-                    index
-                }  else -1,
-                selected = if(SELECTED_INDEX == index) false else true,
-                onClick = ON_CLICK_INDEX,
-                color = MaterialTheme.colors.surface
-            )
+            itemsIndexed(items = selectionMenu){index, menu ->
+                ViewButtonMenu(
+                    title = menu,
+                    index = if(SELECTED_INDEX != index){
+                        index
+                    }  else -1,
+                    selected = if(SELECTED_INDEX == index) false else true,
+                    onClick = ON_CLICK_INDEX,
+                    color = MaterialTheme.colors.surface
+                )
+            }
         }
     }
 }

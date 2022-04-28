@@ -2,6 +2,7 @@ package com.example.mylaundryapp.screens
 
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -90,12 +91,13 @@ fun TransactionScaffoldList(
 ) {
     val context = LocalContext.current
     Scaffold(
-        topBar = { TopAppBarViewTransactionList(
-            navController = navController,
-            title = TITLE_SCREEN[3],
-            screenBack = Screens.Home.route,
-            excelViewModel = excelViewModel
-        ) },
+        topBar = {
+            TopAppBarViewTransactionList(
+                navController = navController,
+                title = TITLE_SCREEN[3],
+                screenBack = Screens.Home.route,
+                excelViewModel = excelViewModel)
+         },
         backgroundColor = MaterialTheme.colors.onPrimary
     ){
         WallTransactionList(navController = navController, transactionViewModel = transactionViewModel, excelViewModel = excelViewModel)

@@ -47,12 +47,13 @@ var TEXT_FIELD by mutableStateOf(TextFieldValue(""))
 var VALUE_SETTING:List<SettingItem> by mutableStateOf(arrayListOf())
 
 //Network Variable
-var IP_ADDRESS: String by mutableStateOf("")
+var KEY_URL: String by mutableStateOf("")
+
 
 //Transaction Variable
 var TRANSACTION_ACTIVE: Int by mutableStateOf(0)
 var IS_DIALOG_OPEN =  mutableStateOf(false)
-var DRYER_INDEX_TRANSACTION: Int by mutableStateOf(0)
+var DRYER_INDEX_TRANSACTION: String by mutableStateOf("")
 
 //Excel Variable
 var EXCEL_VALUE:List<TransactionModel> by mutableStateOf(arrayListOf())
